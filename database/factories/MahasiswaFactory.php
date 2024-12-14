@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Jurusan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,14 @@ class MahasiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => function () {
+                return User::inRandomOrder()->first()->id;
+            },
+            'nim' => fake()->unique()->numberBetween(202121001, 303030999),
+            'jurusan_id'
+            => function () {
+                return Jurusan::inRandomOrder()->first()->id;
+            }
         ];
     }
 }

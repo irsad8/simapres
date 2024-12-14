@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function ubah_password(Request $request)
     {
-        return view('login');
+        $request->validate([
+            'password' => ['required'],
+            'password_confirmation' => ['required'],
+        ]);
+
+        if ($request->password !== $request->password_confirmation) {
+            return back()->with('error', 'ubah password anda gagal');
+        }
+
+        $user = User::find($request->user()->id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', 'Password berhasil diubah');
     }
 
     public function login(Request $request)
@@ -21,13 +36,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
-            return redirect()->route('dashboard')->with('success', 'anda berhasil login');
+
+            return redirect()->to('dashboard')->with('success', 'anda berhasil login');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return back()->with('error', 'anda gagal login input data yang benar')->onlyInput('email');
     }
 
     public function logout(Request $request)

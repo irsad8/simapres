@@ -26,10 +26,50 @@
       
       <!-- RTL Css -->
       <link rel="stylesheet" href="{{ asset('css/rtl.min.css?v=5.0.0')}} ">
-      
-      
+
+      <style>
+         .floating-alert {
+            position: fixed;
+            top: 20px; 
+            right: 20px; 
+            z-index: 1050; 
+            width: auto;
+            min-width: 50vw;
+            max-width: 80vw;
+         }
+  </style>
+
   </head>
-  <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">    
+
+  <!-- alert -->
+    @if (session('success'))
+        <div class="floating-alert alert alert-top alert-success alert-dismissible fade show mb-3 position-fixed" role="alert">
+            <b><span> {{session('success')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('update'))
+        <<div class="floating-alert alert alert-top alert-warning alert-dismissible fade show mb-3 position-absolute" role="alert">
+            <b><span> {{session('update')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('delete'))
+        <<div class="floating-alert alert alert-top alert-danger alert-dismissible fade show mb-3 position-absolute" role="alert">
+            <b><span> {{session('delete')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="floating-alert alert alert-top alert-danger alert-dismissible fade show mb-3 position-absolute" role="alert">
+            <b><span> {{session('error')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    <!-- End Alert --> 
+
+  <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">   
+
       <div class="wrapper">
       <section class="login-content">
          <div class="row m-0 align-items-center bg-success vh-100">            
@@ -47,22 +87,23 @@
                             </div>
                             <!--logo End-->
                            
-                            <h4 class="logo-title ms-3">Sistem Mahasiswa Prestasi</h4>
+                            <h4 class="logo-title ms-3">SIMAPRES</h4>
                           </a>
                            <h2 class="mb-2 text-center">LOGIN</h2>
                            <p class="text-center">laman rekap prestasi mahasiswa</p>
-                           <form>
+                           <form method="POST">
+                              @csrf
                               <div class="row">
                                  <div class="col-lg-12">
                                     <div class="form-group">
                                        <label for="email" class="form-label">Email</label>
-                                       <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                                       <input type="email" name="email" class="form-control" id="email" aria-describedby="email" placeholder="your email" value="{{ old('email') }}">
                                     </div>
                                  </div>
                                  <div class="col-lg-12">
                                     <div class="form-group">
                                        <label for="password" class="form-label">Password</label>
-                                       <input type="password" class="form-control" id="password" aria-describedby="password" placeholder=" ">
+                                       <input type="password" name="password" class="form-control" id="password" aria-describedby="password" placeholder="password">
                                     </div>
                                  </div>
                               </div>

@@ -16,14 +16,16 @@ class Dosen extends Model
 
     protected $table = 'Dosen';
 
-    protected $fillable = ['nama', 'nidn'];
+    protected $with = ['account', 'bimbingan'];
 
-    public function account() : BelongsTo
+    protected $fillable = ['user_id', 'nidn'];
+
+    public function account(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function bimbingan() : HasMany
+    public function bimbingan(): HasMany
     {
         return $this->hasMany(Prestasi::class, 'dosen_id', 'user_id');
     }

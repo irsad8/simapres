@@ -17,20 +17,22 @@ class Mahasiswa extends Model
 
     protected $table = 'Mahasiswa';
 
-    protected $fillable = ['nim', 'id_jurusan'];
+    protected $fillable = ['user_id', 'nim', 'jurusan_id', 'prestasi'];
 
-    public function account() : BelongsTo
+    protected $with = ['account', 'jurusan', 'prestasi'];
+
+    public function account(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function jurusan() : BelongsTo
+    public function jurusan(): BelongsTo
     {
         return $this->belongsTo(Jurusan::class, 'jurusan_id', 'id');
     }
 
-    public function prestasi() : HasMany
+    public function prestasi(): HasMany
     {
-        return $this->hasMany(Prestasi::class,'mahasiswa_id', 'user_id');
+        return $this->hasMany(Prestasi::class, 'mahasiswa_id', 'user_id');
     }
 }

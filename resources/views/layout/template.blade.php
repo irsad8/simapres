@@ -1,36 +1,99 @@
 
 <!doctype html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
-  <head>
+<head>
     <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>simapres Aiska</title>
-      
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="{{ asset('images/aiska.ico')}} ">
-      
-      <!-- Library / Plugin Css Build -->
-      <link rel="stylesheet" href="{{ asset('css/core/libs.min.css')}}">
-      
-      <!-- Aos Animation Css -->
-      <link rel="stylesheet" href="{{ asset('vendor/aos/dist/aos.css')}}">
-      
-      <!-- Hope Ui Design System Css -->
-      <link rel="stylesheet" href="{{ asset('css/hope-ui.min.css?v=5.0.0')}}">
-      
-      <!-- Custom Css -->
-      <link rel="stylesheet" href="{{ asset('css/custom.min.css?v=5.0.0')}}">
-      
-      <!-- Customizer Css -->
-      <link rel="stylesheet" href="{{ asset('css/customizer.min.css?v=5.0.0')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>simapres Aiska</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/aiska.ico')}} ">
+    
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="{{ asset('css/core/libs.min.css')}}">
+    
+    <!-- Aos Animation Css -->
+    <link rel="stylesheet" href="{{ asset('vendor/aos/dist/aos.css')}}">
+    
+    <!-- Hope Ui Design System Css -->
+    <link rel="stylesheet" href="{{ asset('css/hope-ui.min.css?v=5.0.0')}}">
+    
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{{ asset('css/custom.min.css?v=5.0.0')}}">
+    
+    <!-- Customizer Css -->
+    <link rel="stylesheet" href="{{ asset('css/customizer.min.css?v=5.0.0')}}">
 
-      <!-- link apexchat Css -->
-      <link rel="stylesheet" href="{{ asset('css/apexcharts.css')}}">
-  </head>
-      
-      
-  </head>
-  <body class="  ">
+    <!-- link apexchat Css -->
+    <link rel="stylesheet" href="{{ asset('css/apexcharts.css')}}">
+
+    <style>
+        .mdl-success {
+            border-top: 5px solid #08a030;
+        }
+        .mdl-primary {
+            border-top: 5px solid var(--bs-primary);
+        }
+        .mdl-warning {
+            border-top: 5px solid var(--bs-warning);
+        }
+        .mdl-danger {
+            border-top: 5px solid var(--bs-danger);
+        }
+        .mdl-info {
+            border-top: 5px solid var(--bs-info);
+        }
+        .sidebar.sidebar-default .nav-link:not(.static-item).active, .sidebar.sidebar-default .nav-link:not(.static-item)[aria-expanded=true] {
+            background: var(--bs-success);
+        }
+        .floating-alert {
+            position: fixed;
+            top: 20px; 
+            right: 20px; 
+            z-index: 1050; 
+            width: auto;
+            min-width: 50vw;
+            max-width: 80vw;
+        }
+    </style>
+
+    @stack('style')
+</head>
+
+<body class="  ">
+    <!-- alert -->
+    @if (session('success'))
+        <div class="floating-alert alert alert-top alert-success alert-dismissible fade show mb-3" role="alert">
+            <b><span> {{session('success')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('update'))
+        <<div class="floatin-alert alert alert-top alert-warning alert-dismissible fade show mb-3" role="alert">
+            <b><span> {{session('update')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('delete'))
+        <<div class="floating-alert alert alert-top alert-danger alert-dismissible fade show mb-3" role="alert">
+            <b><span> {{session('delete')}}</span></b>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <<div class="floating-alert alert alert-top alert-danger alert-dismissible fade show mb-3" role="alert">
+            @if (is_array(session('error')))
+                @foreach (session('error') as $error)
+                <b><p>{!! $error !!}</p></b>
+                @endforeach
+            @else
+            <b><span> {{session('error')}}</span></b>
+            @endif
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    <!-- End Alert -->
+
     <aside class="sidebar sidebar-default sidebar-white sidebar-base navs-rounded-all sidebar-boxed">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             <a href="" class="navbar-brand">
@@ -38,7 +101,7 @@
                 <!--Logo start-->
                 <div class="logo-main">
                     <div class="logo-normal">
-                        <img src="{{asset('images/auth/aiska.svg')}}" class="text-primary icon-30" alt="Icon Description">
+                        <img src="{{asset('images/auth/aiska.svg')}}" class="text-success icon-30" alt="Icon Description">
                     </div>
                 </div>
                 <!--logo End-->
@@ -59,7 +122,7 @@
                 <!-- Sidebar Menu Start -->
                 <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is(['dashboard*']) ? 'active' : ''}}" aria-current="page" href="../dashboard/index.html">
+                        <a class="nav-link {{ request()->is(['dashboard*']) ? 'active' : ''}}" aria-current="page" href="{{ url('dashboard') }}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
                                     <path opacity="0.4" d="M16.0756 2H19.4616C20.8639 2 22.0001 3.14585 22.0001 4.55996V7.97452C22.0001 9.38864 20.8639 10.5345 19.4616 10.5345H16.0756C14.6734 10.5345 13.5371 9.38864 13.5371 7.97452V4.55996C13.5371 3.14585 14.6734 2 16.0756 2Z" fill="currentColor"></path>
@@ -70,34 +133,36 @@
                         </a>
                     </li>
                     <li><hr class="hr-horizontal"></li>
+                    @if (auth()->user()->role == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is(['dosen*']) ? 'active' : ''}}" aria-current="page" href="{{ url('dosen') }}">
+                                <i class="icon">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
+                                        <path opacity="0.5" d="M4.72718 2.73332C5.03258 2.42535 5.46135 2.22456 6.27103 2.11478C7.10452 2.00177 8.2092 2 9.7931 2H14.2069C15.7908 2 16.8955 2.00177 17.729 2.11478C18.5387 2.22456 18.9674 2.42535 19.2728 2.73332C19.5782 3.0413 19.7773 3.47368 19.8862 4.2902C19.9982 5.13073 20 6.24474 20 7.84202L20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C4.02435 19.4367 4 19.5687 4 19.7003V7.84202C4 6.24474 4.00176 5.13073 4.11382 4.2902C4.22268 3.47368 4.42179 3.0413 4.72718 2.73332Z" fill="#1C274D"/>
+                                        <path d="M20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C3.97041 19.5831 3.99045 19.7288 4.03053 20.02C4.03761 20.0714 4.04522 20.1216 4.05343 20.1706C4.16271 20.8228 4.36259 21.1682 4.66916 21.4142C4.97573 21.6602 5.40616 21.8206 6.21896 21.9083C7.05566 21.9986 8.1646 22 9.75461 22H14.1854C15.7754 22 16.8844 21.9986 17.7211 21.9083C18.5339 21.8206 18.9643 21.6602 19.2709 21.4142C19.4705 21.254 19.6249 21.0517 19.7385 20.75H8C7.58579 20.75 7.25 20.4142 7.25 20C7.25 19.5858 7.58579 19.25 8 19.25H19.9754C19.9926 18.8868 19.9982 18.4741 20 18Z" fill="#1C274D"/>
+                                        <path d="M7.25 7C7.25 6.58579 7.58579 6.25 8 6.25H16C16.4142 6.25 16.75 6.58579 16.75 7C16.75 7.41421 16.4142 7.75 16 7.75H8C7.58579 7.75 7.25 7.41421 7.25 7Z" fill="#1C274D"/>
+                                        <path d="M8 9.75C7.58579 9.75 7.25 10.0858 7.25 10.5C7.25 10.9142 7.58579 11.25 8 11.25H13C13.4142 11.25 13.75 10.9142 13.75 10.5C13.75 10.0858 13.4142 9.75 13 9.75H8Z" fill="#1C274D"/>
+                                    </svg>
+                                </i>
+                                <span class="item-name">data dosen</span>
+                            </a>
+                        </li>
+                        <li><hr class="hr-horizontal"></li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is(['mahasiswa*']) ? 'active' : ''}}" aria-current="page" href="{{ url('mahasiswa') }}">
+                                <i class="icon">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
+                                        <path d="M14.2172 3.49965C12.7962 2.83345 11.2037 2.83345 9.78272 3.49965L3.0916 6.63659C2.0156 7.14105 1.73507 8.56352 2.25 9.54666L2.25 14.5C2.25 14.9142 2.58579 15.25 3 15.25C3.41421 15.25 3.75 14.9142 3.75 14.5V10.672L9.78281 13.5003C11.2038 14.1665 12.7963 14.1665 14.2173 13.5003L20.9084 10.3634C22.3639 9.68105 22.3639 7.31899 20.9084 6.63664L14.2172 3.49965Z" fill="#1C274D"/>
+                                        <path opacity="0.5" d="M5 11.2581L9.78281 13.5003C11.2038 14.1665 12.7963 14.1665 14.2173 13.5003L19 11.2581V16.6252C19 17.6333 18.4965 18.577 17.6147 19.0654C16.1463 19.8786 13.796 20.9998 12 20.9998C10.204 20.9998 7.8537 19.8786 6.38533 19.0654C5.5035 18.577 5 17.6333 5 16.6252V11.2581Z" fill="#1C274D"/>
+                                    </svg>
+                                </i>
+                                <span class="item-name">data mahasiswa</span>
+                            </a>
+                        </li>
+                        <li><hr class="hr-horizontal"></li>
+                    @endif
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is(['dosen*']) ? 'active' : ''}}" aria-current="page" href="">
-                            <i class="icon">
-                                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
-                                    <path opacity="0.5" d="M4.72718 2.73332C5.03258 2.42535 5.46135 2.22456 6.27103 2.11478C7.10452 2.00177 8.2092 2 9.7931 2H14.2069C15.7908 2 16.8955 2.00177 17.729 2.11478C18.5387 2.22456 18.9674 2.42535 19.2728 2.73332C19.5782 3.0413 19.7773 3.47368 19.8862 4.2902C19.9982 5.13073 20 6.24474 20 7.84202L20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C4.02435 19.4367 4 19.5687 4 19.7003V7.84202C4 6.24474 4.00176 5.13073 4.11382 4.2902C4.22268 3.47368 4.42179 3.0413 4.72718 2.73332Z" fill="#1C274D"/>
-                                    <path d="M20 18H7.42598C6.34236 18 5.96352 18.0057 5.67321 18.0681C5.15982 18.1785 4.71351 18.4151 4.38811 18.7347C4.27837 18.8425 4.22351 18.8964 4.09696 19.2397C3.97041 19.5831 3.99045 19.7288 4.03053 20.02C4.03761 20.0714 4.04522 20.1216 4.05343 20.1706C4.16271 20.8228 4.36259 21.1682 4.66916 21.4142C4.97573 21.6602 5.40616 21.8206 6.21896 21.9083C7.05566 21.9986 8.1646 22 9.75461 22H14.1854C15.7754 22 16.8844 21.9986 17.7211 21.9083C18.5339 21.8206 18.9643 21.6602 19.2709 21.4142C19.4705 21.254 19.6249 21.0517 19.7385 20.75H8C7.58579 20.75 7.25 20.4142 7.25 20C7.25 19.5858 7.58579 19.25 8 19.25H19.9754C19.9926 18.8868 19.9982 18.4741 20 18Z" fill="#1C274D"/>
-                                    <path d="M7.25 7C7.25 6.58579 7.58579 6.25 8 6.25H16C16.4142 6.25 16.75 6.58579 16.75 7C16.75 7.41421 16.4142 7.75 16 7.75H8C7.58579 7.75 7.25 7.41421 7.25 7Z" fill="#1C274D"/>
-                                    <path d="M8 9.75C7.58579 9.75 7.25 10.0858 7.25 10.5C7.25 10.9142 7.58579 11.25 8 11.25H13C13.4142 11.25 13.75 10.9142 13.75 10.5C13.75 10.0858 13.4142 9.75 13 9.75H8Z" fill="#1C274D"/>
-                                </svg>
-                            </i>
-                            <span class="item-name">data dosen</span>
-                        </a>
-                    </li>
-                    <li><hr class="hr-horizontal"></li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is(['mahasiswa*']) ? 'active' : ''}}" aria-current="page" href="">
-                            <i class="icon">
-                                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
-                                    <path d="M14.2172 3.49965C12.7962 2.83345 11.2037 2.83345 9.78272 3.49965L3.0916 6.63659C2.0156 7.14105 1.73507 8.56352 2.25 9.54666L2.25 14.5C2.25 14.9142 2.58579 15.25 3 15.25C3.41421 15.25 3.75 14.9142 3.75 14.5V10.672L9.78281 13.5003C11.2038 14.1665 12.7963 14.1665 14.2173 13.5003L20.9084 10.3634C22.3639 9.68105 22.3639 7.31899 20.9084 6.63664L14.2172 3.49965Z" fill="#1C274D"/>
-                                    <path opacity="0.5" d="M5 11.2581L9.78281 13.5003C11.2038 14.1665 12.7963 14.1665 14.2173 13.5003L19 11.2581V16.6252C19 17.6333 18.4965 18.577 17.6147 19.0654C16.1463 19.8786 13.796 20.9998 12 20.9998C10.204 20.9998 7.8537 19.8786 6.38533 19.0654C5.5035 18.577 5 17.6333 5 16.6252V11.2581Z" fill="#1C274D"/>
-                                </svg>
-                            </i>
-                            <span class="item-name">data mahasiswa</span>
-                        </a>
-                    </li>
-                    <li><hr class="hr-horizontal"></li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is(['prestasi*']) ? 'active' : ''}}" aria-current="page" href="">
+                        <a class="nav-link {{ request()->is(['prestasi*']) ? 'active' : ''}}" aria-current="page" href="{{ url('prestasi') }}">
                             <i class="icon">
                                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
                                     <path opacity="0.5" d="M2 8V12C2 14.8284 2 16.2426 2.87868 17.1213C3.35503 17.5977 3.98877 17.8158 4.9199 17.9156C4.9939 17.8157 5.06395 17.737 5.11392 17.6821C5.23008 17.5543 5.37739 17.4091 5.5202 17.2683L7.01311 15.7962L7.56446 15.2377C7.9268 13.1151 9.77461 11.5 12.0001 11.5C14.2255 11.5 16.0733 13.1151 16.4357 15.2377L16.987 15.7962L18.48 17.2684C18.6228 17.4092 18.7701 17.5544 18.8862 17.6821C18.9362 17.737 19.0062 17.8157 19.0802 17.9156C20.0113 17.8158 20.645 17.5977 21.1213 17.1213C22 16.2426 22 14.8284 22 12V8C22 5.17157 22 3.75736 21.1213 2.87868C20.2426 2 18.8284 2 16 2H8C5.17157 2 3.75736 2 2.87868 2.87868C2 3.75736 2 5.17157 2 8Z" fill="#1C274D"/>
@@ -128,7 +193,7 @@
                 <!--Logo start-->
                 <div class="logo-main">
                     <div class="logo-normal">
-                        <img src="{{asset('images/auth/aiska.svg')}}" class="text-primary icon-30" alt="Icon Description">
+                        <img src="{{asset('images/auth/aiska.svg')}}" class="text-success icon-30" alt="Icon Description">
                     </div>
                 </div>
                 <!--logo End-->
@@ -158,12 +223,12 @@
                   <a class="py-0 nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{asset('images/avatar.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
                     <div class="caption ms-3 d-none d-md-block ">
-                        <h6 class="mb-0 caption-title">Austin Robertson</h6>
-                        <p class="mb-0 caption-sub-title">Marketing Administrator</p>
+                        <h6 class="mb-0 caption-title">{{auth()->user()->nama}} </h6>
+                        <p class="mb-0 caption-sub-title">{{auth()->user()->role}}</p>
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="">
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_password" style="cursor: pointer">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
                             <path opacity="0.5" d="M2 16C2 13.1716 2 11.7574 2.87868 10.8787C3.75736 10 5.17157 10 8 10H16C18.8284 10 20.2426 10 21.1213 10.8787C22 11.7574 22 13.1716 22 16C22 18.8284 22 20.2426 21.1213 21.1213C20.2426 22 18.8284 22 16 22H8C5.17157 22 3.75736 22 2.87868 21.1213C2 20.2426 2 18.8284 2 16Z" fill="#1C274C"/>
                             <path d="M8 17C8.55228 17 9 16.5523 9 16C9 15.4477 8.55228 15 8 15C7.44772 15 7 15.4477 7 16C7 16.5523 7.44772 17 8 17Z" fill="#1C274C"/>
@@ -173,7 +238,7 @@
                             </svg>  Ubah password
                     </a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="">
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal_logout" style="cursor: pointer">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-20">
                             <path opacity="0.5" d="M9.052 4.5C9 5.07763 9 5.80355 9 6.72183V17.2781C9 18.1964 9 18.9224 9.05201 19.5H8C5.64298 19.5 4.46447 19.5 3.73223 18.7678C3 18.0355 3 16.857 3 14.5V9.5C3 7.14298 3 5.96447 3.73223 5.23223C4.46447 4.5 5.64298 4.5 8 4.5H9.052Z" fill="#1C274C"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70725 2.4087C9 3.03569 9 4.18259 9 6.4764V17.5236C9 19.8174 9 20.9643 9.70725 21.5913C10.4145 22.2183 11.4955 22.0297 13.6576 21.6526L15.9864 21.2465C18.3809 20.8288 19.5781 20.62 20.2891 19.7417C21 18.8635 21 17.5933 21 15.0529V8.94711C21 6.40671 21 5.13652 20.2891 4.25826C19.5781 3.37999 18.3809 3.17118 15.9864 2.75354L13.6576 2.34736C11.4955 1.97026 10.4145 1.78171 9.70725 2.4087ZM12.75 10.9535C12.75 10.52 12.4142 10.1686 12 10.1686C11.5858 10.1686 11.25 10.52 11.25 10.9535V13.0465C11.25 13.48 11.5858 13.8314 12 13.8314C12.4142 13.8314 12.75 13.48 12.75 13.0465V10.9535Z" fill="#1C274C"/>
@@ -192,12 +257,12 @@
                       <div class="col-md-12">
                           <div class="flex-wrap d-flex justify-content-between align-items-center">
                               <div>
-                                  {{-- <h1>selamat datang {{ auth()->user()->nama}}</h1> --}}
+                                  <h1>selamat datang {{ auth()->user()->nama}}</h1>
                                   <p>di halaman laporan prestasi mahasiswa Universitas Aisyiyah Surakarta</p>
                               </div>
                               <div>
                                 <div href="" class="btn text-dark btn-success btn-soft-dark">
-                                    Announcements
+                                    {{ strtoupper(request()->path())}}
                                 </div>
                             </div>
                           </div>
@@ -216,12 +281,63 @@
       <!-- Footer Section Start -->
         <footer class="footer position-absolute bottom-0">
             <div class="footer-body">
-                <div class="right-panel text-primary">
+                <div class="right-panel text-success">
                     Copyright © 2024 SIMAPRES, Made with by Irsad team</a>.
                 </div>
             </div>
         </footer>
       <!-- Footer Section End -->
+
+      <!-- Modal content -->
+        <div class="modal fade" id="modal_password" tabindex="-1" aria-labelledby="ubah password" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content mdl-warning">
+                    <form action="{{ url('ubah_password') }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Paassword</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="Password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Save Change</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal_logout" tabindex="-1" aria-labelledby="logout" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content mdl-danger">
+                    <form action="{{ url('logout') }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">logout akun</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>apakah anda yakin akan keluar dari akun</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End Modal content -->
     </main>
 
     <!-- Wrapper End-->
@@ -236,7 +352,6 @@
     
     <!-- mapchart Script -->
     <script src="{{ asset('js/charts/vectore-chart.js')}}"></script>
-    <script src="{{ asset('js/charts/dashboard.js')}}" ></script>
     
     <!-- fslightbox Script -->
     <script src="{{ asset('js/plugins/fslightbox.js')}}"></script>

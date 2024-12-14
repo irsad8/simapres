@@ -15,6 +15,8 @@ class Prestasi extends Model
 
     protected $table = 'Prestasi';
 
+    protected $with = ['mahasiswa', 'dosen'];
+
     protected $fillable = [
         'mahasiswa_id',
         'kategori',
@@ -34,13 +36,13 @@ class Prestasi extends Model
         'verifikasi',
     ];
 
-    public function mahasiswa() : BelongsTo
+    public function mahasiswa(): BelongsTo
     {
-        return $this->belongsTo(Mahasiswa::class,'mahasiswa_id','user_id');
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'user_id');
     }
 
-    public function dosen() : BelongsTo
+    public function dosen(): BelongsTo
     {
-        return $this->belongsTo(Dosen::class, 'dosen_id','user_id');
+        return $this->belongsTo(Dosen::class, 'dosen_id', 'user_id');
     }
 }

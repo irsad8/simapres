@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('prestasi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('mahasiswa_id')->nullable()->references('user_id')->on('mahasiswa')->onDelete('set null');
-            $table->enum('kategori',['provinsi','nasional','internasional']);
-            $table->enum('pelaksanaan',['daring','luring']);
+            $table->enum('kategori', ['provinsi', 'nasional', 'internasional']);
+            $table->enum('pelaksanaan', ['daring', 'luring']);
             $table->boolean('diatas_10PT');
             $table->string('nama_kegiatan');
-            $table->string('jumlah_peserta')->nullable();
+            $table->integer('jumlah_peserta')->nullable();
             $table->string('capaian');
             $table->date('mulai_pelaksanaan');
             $table->date('selesai_pelaksanaan');
